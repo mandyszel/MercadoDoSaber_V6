@@ -1,12 +1,11 @@
-//teste pro github
-
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+
     public Slider musicSlider;
     public Slider sfxSlider;
     public AudioClip backgroundMusic;
@@ -17,12 +16,19 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
+        // Garante que apenas um AudioManager exista
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-    void Start()
-    {
-        // Criar ou pegar os AudioSources
+        // Adiciona os AudioSources se não existirem
         AudioSource[] sources = GetComponents<AudioSource>();
         if (sources.Length < 2)
         {
@@ -35,42 +41,53 @@ public class AudioManager : MonoBehaviour
             sfxSource = sources[1];
         }
 
-        // Configurar a música de fundo
+        // Configuração do AudioSource da música
+        musicSource.loop = true;
         if (backgroundMusic != null)
         {
             musicSource.clip = backgroundMusic;
-            musicSource.loop = true;
-            musicSource.playOnAwake = true;
-            musicSource.Play();
+            if (!musicSource.isPlaying)
+            {
+                musicSource.Play();
+            }
         }
 
-        // Configurar volumes
-        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        // Carrega volumes salvos
+        musicSource.volume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sfxSource.volume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+    }
 
-        musicSource.volume = musicSlider.value;
-        sfxSource.volume = sfxSlider.value;
+    void Start()
+    {
+        // Aplica o volume salvo aos sliders, se existirem
+        if (musicSlider != null) 
+        {
+            musicSlider.value = musicSource.volume;
+            musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
+        }
+        
+        if (sfxSlider != null) 
+        {
+            sfxSlider.value = sfxSource.volume;
+            sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
+        }
 
-        musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
-        sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
-
-        // Registrar botões ao iniciar
         RegisterButtons();
-
-        // Registrar evento de troca de cena para registrar novos botões
-        SceneManager.sceneLoaded += (scene, mode) => RegisterButtons();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void UpdateMusicVolume(float value)
     {
         musicSource.volume = value;
         PlayerPrefs.SetFloat("MusicVolume", value);
+        PlayerPrefs.Save();
     }
 
     void UpdateSFXVolume(float value)
     {
         sfxSource.volume = value;
         PlayerPrefs.SetFloat("SFXVolume", value);
+        PlayerPrefs.Save();
     }
 
     void RegisterButtons()
@@ -90,4 +107,14 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(buttonClickSound);
         }
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RegisterButtons();
+
+        // Garante que os sliders sejam atualizados ao entrar em novas cenas
+        if (musicSlider != null) musicSlider.value = musicSource.volume;
+        if (sfxSlider != null) sfxSlider.value = sfxSource.volume;
+    }
 }
+
