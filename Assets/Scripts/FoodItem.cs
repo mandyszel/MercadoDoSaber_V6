@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class FoodItem : MonoBehaviour
 {
-    public int value; // Valor do alimento
+    public float value; // Valor do alimento (agora com casas decimais)
 
-    public void SetFoodValue(int newValue)
+    public void SetFoodValue(float newValue)
     {
         value = newValue;
     }

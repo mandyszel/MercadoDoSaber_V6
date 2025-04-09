@@ -1,11 +1,3 @@
-//dando certo porem as frutas desaparecer a partir da 2 vez
-//dando certo, erro corrigido
-//erro de conseguir colocar um item acima do  outro 
-//arrumado
-
-//so pode fazer a confirmação apos ter os tres slots completos
-
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -22,11 +14,12 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private bool isSelected = false;
 
     public TextMeshProUGUI totalValueText;
-    public static int totalValue = 0;
-    private FoodItem foodItem;
-    private RectTransform currentSlot; // Alterado para RectTransform
+    public static float totalValue = 0f; // Agora com casas decimais
 
-    private static bool[] slotOccupied = new bool[3]; // Supondo 3 slots
+    private FoodItem foodItem;
+    private RectTransform currentSlot;
+
+    private static bool[] slotOccupied = new bool[3]; // Três slots
 
     void Awake()
     {
@@ -44,11 +37,10 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (isSelected && currentSlot != null)
         {
-            // Se já está em um slot, tira o item de lá
-            totalValue = Mathf.Max(0, totalValue - foodItem.value);
+            totalValue = Mathf.Max(0f, totalValue - foodItem.value);
             selectedCount--;
             isSelected = false;
-            slotOccupied[GetSlotIndex(currentSlot)] = false; // Marca o slot como desocupado
+            slotOccupied[GetSlotIndex(currentSlot)] = false;
             currentSlot = null;
             UpdateTotalUI();
         }
@@ -77,53 +69,52 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         RectTransform targetSlot = GetValidSlot(eventData);
 
-        if (targetSlot != null && !IsSlotOccupied(targetSlot)) // Verifica se o slot não está ocupado
+        if (targetSlot != null && !IsSlotOccupied(targetSlot))
         {
             if (currentSlot != null && currentSlot != targetSlot)
             {
-                // Se o item estava em outro slot, tira ele de lá
-                totalValue = Mathf.Max(0, totalValue - foodItem.value);
+                totalValue = Mathf.Max(0f, totalValue - foodItem.value);
                 selectedCount--;
-                slotOccupied[GetSlotIndex(currentSlot)] = false; // Marca o slot anterior como desocupado
+                slotOccupied[GetSlotIndex(currentSlot)] = false;
             }
 
-            // Atualiza o parentTransform corretamente para o slot, e coloca a posição correta
             transform.SetParent(targetSlot);
-            rectTransform.anchoredPosition = Vector2.zero; // Garantir que o alimento vai para o centro do slot
+            rectTransform.anchoredPosition = Vector2.zero;
 
             if (!isSelected)
             {
                 totalValue += foodItem.value;
                 selectedCount++;
                 isSelected = true;
-                slotOccupied[GetSlotIndex(targetSlot)] = true; // Marca o slot como ocupado
+                slotOccupied[GetSlotIndex(targetSlot)] = true;
             }
 
             currentSlot = targetSlot;
         }
         else
         {
-            // Quando o alimento não é colocado em um slot válido, ele volta para o parent original
             transform.SetParent(parentTransform);
-            rectTransform.anchoredPosition = originalPosition - parentTransform.position; // Posição correta
+            rectTransform.anchoredPosition = originalPosition - parentTransform.position;
+
             if (isSelected)
             {
-                totalValue = Mathf.Max(0, totalValue - foodItem.value);
+                totalValue = Mathf.Max(0f, totalValue - foodItem.value);
                 selectedCount--;
                 isSelected = false;
             }
+
             currentSlot = null;
         }
 
         UpdateTotalUI();
-        Debug.Log("Total Atual: " + totalValue);
+        Debug.Log("Total Atual: R$ " + totalValue.ToString("F2"));
     }
 
     private void UpdateTotalUI()
     {
         if (totalValueText != null)
         {
-            totalValueText.text = totalValue.ToString();
+            totalValueText.text = "R$ " + totalValue.ToString("F2");
         }
     }
 
@@ -140,13 +131,11 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         return null;
     }
 
-    // Função para verificar se o slot está ocupado
     private bool IsSlotOccupied(RectTransform slot)
     {
         return slotOccupied[GetSlotIndex(slot)];
     }
 
-    // Função para obter o índice do slot baseado no objeto RectTransform
     private int GetSlotIndex(RectTransform slot)
     {
         int index = -1;
@@ -162,17 +151,15 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         return index;
     }
 
-    // Adiciona o método AllSlotsFilled() no DragDropFood
-public bool AllSlotsFilled()
-{
-    foreach (bool isOccupied in slotOccupied)
+    public bool AllSlotsFilled()
     {
-        if (!isOccupied)
+        foreach (bool isOccupied in slotOccupied)
         {
-            return false; // Se algum slot não estiver ocupado, retorna false
+            if (!isOccupied)
+            {
+                return false;
+            }
         }
+        return true;
     }
-    return true; // Se todos os slots estiverem ocupados, retorna true
-}
-
 }
