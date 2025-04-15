@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class MoneyItem : MonoBehaviour
 {
-    public int value; // Define o valor da nota/moeda
+    public float value; // Define o valor da nota/moeda
 }

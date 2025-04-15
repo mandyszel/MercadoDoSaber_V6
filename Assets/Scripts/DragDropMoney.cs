@@ -1,20 +1,16 @@
-//a principio tudo certto
-// as vezes a nota da uma travadinha na borda do payment slot
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
 public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
     private Vector3 originalPosition;
     private Transform parentTransform;
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
-    public static int totalMoneyValue = 0;
+    public static float totalMoneyValue = 0f; // ALTERADO para float
     private MoneyItem moneyItem;
     private Transform currentSlot;
     private bool isSelected = false;
@@ -82,26 +78,20 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             transform.SetParent(targetSlot);
 
-            // Obtém as dimensões do PaymentSlot
             RectTransform slotRect = targetSlot.GetComponent<RectTransform>();
             Vector2 slotSize = slotRect.rect.size;
 
-            // Define um retângulo menor dentro do PaymentSlot
-            
-            
-            float padding = 20f; // Ajuste conforme necessário
+            float padding = 20f;
             float minX = -slotSize.x / 2 + padding;
             float maxX = slotSize.x / 2 - padding;
             float minY = -slotSize.y / 2 + padding;
             float maxY = slotSize.y / 2 - padding;
 
-            // Garante que o dinheiro fique dentro do retângulo menor
             Vector2 clampedPosition = new Vector2(
                 Mathf.Clamp(rectTransform.anchoredPosition.x, minX, maxX),
                 Mathf.Clamp(rectTransform.anchoredPosition.y, minY, maxY)
             );
 
-            // Ajuste para permitir a movimentação dentro do limite
             rectTransform.anchoredPosition = clampedPosition;
 
             if (!isSelected)
@@ -122,13 +112,13 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 totalMoneyValue = Mathf.Max(0, totalMoneyValue - moneyItem.value);
                 isSelected = false;
             }
+
             currentSlot = null;
         }
 
         UpdateTotalUI();
 
-        // Verifica o valor do pagamento
-        if (totalMoneyValue == DragDropFood.totalValue)
+        if (Mathf.Approximately(totalMoneyValue, DragDropFood.totalValue))
         {
             Debug.Log("Valor correto! Pagamento concluído.");
         }
@@ -142,7 +132,7 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (totalMoneyValueText != null)
         {
-            totalMoneyValueText.text = totalMoneyValue.ToString();
+            totalMoneyValueText.text = totalMoneyValue.ToString("F2"); // Mostra com duas casas decimais
         }
     }
 
@@ -161,7 +151,6 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void ClampToSlot(RectTransform slot)
     {
-       // float padding = 20f; 
         Vector3 slotCenter = slot.rect.center;
         float clampedX = Mathf.Clamp(rectTransform.anchoredPosition.x, slotCenter.x - slot.rect.width / 4, slotCenter.x + slot.rect.width / 4);
         float clampedY = Mathf.Clamp(rectTransform.anchoredPosition.y, slotCenter.y - slot.rect.height / 4, slotCenter.y + slot.rect.height / 4);
