@@ -23,11 +23,19 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     void Awake()
     {
+        // Certificando-se de que os componentes estão atribuídos corretamente
         canvas = GetComponentInParent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         originalPosition = transform.position;
         parentTransform = transform.parent;
+
+        // Verifica se os componentes estão atribuídos corretamente
+        if (parentTransform == null)
+        {
+            Debug.LogError("parentTransform não foi atribuído corretamente!");
+        }
+
         foodItem = GetComponent<FoodItem>();
         currentSlot = null;
         UpdateTotalUI();
@@ -116,6 +124,10 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         {
             totalValueText.text = "R$ " + totalValue.ToString("F2");
         }
+        else
+        {
+            Debug.LogError("totalValueText não foi atribuído no inspector!");
+        }
     }
 
     private RectTransform GetValidSlot(PointerEventData eventData)
@@ -161,5 +173,17 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             }
         }
         return true;
+    }
+
+    public void ResetSlots()
+    {
+        // Reseta os slots
+        for (int i = 0; i < slotOccupied.Length; i++)
+        {
+            slotOccupied[i] = false;
+        }
+        totalValue = 0f;
+        selectedCount = 0;
+        UpdateTotalUI();
     }
 }

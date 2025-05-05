@@ -43,6 +43,10 @@ public class CheckPayment : MonoBehaviour
             if (DragDropMoney.totalMoneyValue == DragDropFood.totalValue)
             {
                 starSystem.VerifyPayment();
+                // Limpar a fase ao acertar o pagamento
+                dragDropFood.ResetSlots(); // Limpa os slots de alimentos
+                DragDropMoney.totalMoneyValue = 0f; // Reseta o valor do dinheiro
+                Debug.Log("Fase limpa!");
             }
             else
             {
@@ -59,7 +63,6 @@ public class CheckPayment : MonoBehaviour
     }
 
     public void HideAlert()
-
     {
         if (alertPanel != null)
             alertPanel.SetActive(false);

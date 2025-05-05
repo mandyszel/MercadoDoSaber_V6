@@ -156,4 +156,19 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         float clampedY = Mathf.Clamp(rectTransform.anchoredPosition.y, slotCenter.y - slot.rect.height / 4, slotCenter.y + slot.rect.height / 4);
         rectTransform.anchoredPosition = new Vector2(clampedX, clampedY);
     }
+
+    // Método para resetar os slots de dinheiro
+    public void ResetMoneySlots()
+    {
+        totalMoneyValue = 0f;
+        UpdateTotalUI();
+
+        // Reseta a posição do item e o estado de seleção
+        transform.SetParent(parentTransform);
+        rectTransform.anchoredPosition = new Vector2(originalPosition.x, originalPosition.y);
+        isSelected = false;
+        currentSlot = null;
+
+        Debug.Log("Notas e moedas resetadas!");
+    }
 }
