@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ad409bb191b5faf46b631b03d9e94cb4
+guid: 487bf4b7384b46a4cafa4659a31faa50
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1604767467892231897
-    second: Alimentos_0
+      213: 6513447037963798651
+    second: FaseButton7_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Alimentos_0
+      name: FaseButton7_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1
-        width: 1076
-        height: 202
+        x: 0
+        y: 0
+        width: 160
+        height: 168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9dec1d67287454610800000000000000
-      internalID: 1604767467892231897
+      spriteID: b7807214299646a50800000000000000
+      internalID: 6513447037963798651
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Alimentos_0: 1604767467892231897
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

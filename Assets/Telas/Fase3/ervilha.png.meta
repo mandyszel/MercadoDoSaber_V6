@@ -124,8 +124,8 @@ TextureImporter:
         serializedVersion: 2
         x: 9
         y: 16
-        width: 95
-        height: 102
+        width: 39
+        height: 77
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,11 +184,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ervilha_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 6
+        width: 110
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a07ec4b7263b074e981f59229e22cab
+      internalID: 5805609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 515359b74ff5920489366895c0cf56d3
+    spriteID: 5463a842c36642343b07e948a68e0cbf
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +220,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ervilha_0: 2762374318791513200
-      ervilha_1: 3958209817398683474
-      ervilha_2: 593477018020470892
+      ervilha_3: 5805609
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

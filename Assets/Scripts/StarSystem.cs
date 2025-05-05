@@ -14,14 +14,31 @@ public class StarSystem : MonoBehaviour
         {
             CalculateStars();  // Calcula as estrelas com base nos erros
             PlayerPrefs.SetInt("EarnedStars", earnedStars); // Salva as estrelas
-            PlayerPrefs.SetInt("CanProceed", earnedStars >= 2 ? 1 : 0); // 1 = pode avançar, 0 = não pode
-            SceneManager.LoadScene("FaseConcluida"); // Vai para a cena de vitória
+
+            // Salva o nome da fase atual para referência futura
+            PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
+
+            if (earnedStars >= 2)
+            {
+                PlayerPrefs.SetInt("CanProceed", 1); // Pode avançar
+                SceneManager.LoadScene("FaseConcluida");
+            }
+            else
+            {
+                PlayerPrefs.SetInt("CanProceed", 0); // Não pode avançar
+                SceneManager.LoadScene("FaseFalha");
+            }
         }
         else
         {
-            errors++; // Aumenta o número de erros
-            PlayerPrefs.SetInt("EarnedStars", 0); // Zera as estrelas se errar
-            SceneManager.LoadScene("FaseFalha"); // Vai para a cena de falha
+            errors++;
+            // Salva o nome da fase atual para referência futura
+            PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
+
+            PlayerPrefs.SetInt("EarnedStars", 0);
+            PlayerPrefs.SetInt("CanProceed", 0);
+
+            SceneManager.LoadScene("FaseFalha");
         }
     }
 
