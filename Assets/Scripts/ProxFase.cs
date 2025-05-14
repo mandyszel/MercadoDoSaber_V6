@@ -1,32 +1,33 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class VictoryScreen : MonoBehaviour
 {
-    public Image[] stars;
-    public Sprite starFilled;
-    public Sprite starEmpty;
-    public TextMeshProUGUI resultText;
-
-    void Start()
+    void Awake()
     {
-        int earnedStars = PlayerPrefs.GetInt("EarnedStars", 0);
+        // Reinicia variáveis da fase
+        DragDropFood.totalValue = 0f;
+        DragDropFood.selectedCount = 0;
 
-        for (int i = 0; i < stars.Length; i++)
-        {
-            stars[i].sprite = i < earnedStars ? starFilled : starEmpty;
-        }
+        Debug.Log("Variáveis reiniciadas para nova fase.");
     }
 
     public void NextLevel()
     {
-        SceneManager.LoadScene("NomeDaProximaFase"); // Troque pelo nome correto
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.LogWarning("Última fase atingida.");
+        }
     }
 
     public void RetryLevel()
     {
-        SceneManager.LoadScene("NomeDaFaseAtual"); // Troque pelo nome correto
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
