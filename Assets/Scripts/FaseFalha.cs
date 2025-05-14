@@ -5,6 +5,7 @@ public class FailureScreen : MonoBehaviour
 {
     public void RetryLevel()
     {
-        SceneManager.LoadScene("NomeDaFaseAtual"); // Troque pelo nome correto
+        string nomeCena = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(nomeCena);
     }
 }

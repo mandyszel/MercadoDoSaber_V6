@@ -60,6 +60,8 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public void OnDrag(PointerEventData eventData)
     {
+        transform.SetAsLastSibling();
+
         Vector2 position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.transform as RectTransform,
@@ -67,7 +69,15 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             canvas.worldCamera,
             out position
         );
-        rectTransform.anchoredPosition = position;
+Vector3 globalPosition;
+if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
+    canvas.transform as RectTransform,
+    eventData.position,
+    canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+    out globalPosition))
+{
+    transform.position = globalPosition;
+}
     }
 
     public void OnEndDrag(PointerEventData eventData)

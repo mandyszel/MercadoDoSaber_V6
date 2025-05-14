@@ -15,6 +15,9 @@ public class CheckPayment : MonoBehaviour
 
     void Start()
     {
+        // Zera tentativas ao iniciar a fase
+        StarSystem.errors = 0;
+
         verifyButton.onClick.AddListener(OnVerifyPayment);
         verifyButton.interactable = false;
 

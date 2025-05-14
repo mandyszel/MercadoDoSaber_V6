@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eaab8889e227c84094c718e3d39d5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalValueText: {fileID: 0}
+  totalValueText: {fileID: 4319907}
 --- !u!4 &487623344
 Transform:
   m_ObjectHideFlags: 0
