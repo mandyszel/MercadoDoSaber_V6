@@ -733,8 +733,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 928242388}
-        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
-        m_MethodName: NextLevel
+        m_TargetAssemblyTypeName: ProximaFase, Assembly-CSharp
+        m_MethodName: IrParaProximaFase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

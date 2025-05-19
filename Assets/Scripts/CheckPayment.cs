@@ -34,8 +34,7 @@ public class CheckPayment : MonoBehaviour
     }
 
     bool IsPaymentSlotNotEmpty()
-    {
-        GameObject paymentSlot = GameObject.FindGameObjectWithTag(paymentSlotTag);
+    { GameObject paymentSlot = GameObject.FindGameObjectWithTag(paymentSlotTag);
         return paymentSlot != null && paymentSlot.transform.childCount > 0;
     }
 
@@ -46,17 +45,35 @@ public class CheckPayment : MonoBehaviour
             if (DragDropMoney.totalMoneyValue == DragDropFood.totalValue)
             {
                 starSystem.VerifyPayment();
-                // Limpar a fase ao acertar o pagamento
+
+                // Salva o número da fase atual (ex: Fase3 -> 3)
+string currentSceneName = SceneManager.GetActiveScene().name;
+System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(currentSceneName, @"Fase(\d+)");
+if (match.Success)
+{
+    int numeroFase = int.Parse(match.Groups[1].Value);
+    PlayerPrefs.SetInt("FaseAtual", numeroFase);
+}
+else
+{
+    Debug.LogError("Nome da cena não segue o padrão 'FaseN'. Nome lido: '" + currentSceneName + "'");
+}
+
+
+                // Limpa a fase ao acertar o pagamento
                 dragDropFood.ResetSlots(); // Limpa os slots de alimentos
                 DragDropMoney.totalMoneyValue = 0f; // Reseta o valor do dinheiro
                 Debug.Log("Fase limpa!");
+
+                // Carrega a tela de vitória
+                SceneManager.LoadScene("Scenes/FaseConcluida");
             }
             else
             {
                 StarSystem.errors++; // Conta o erro
                 ShowAlert(); // Mostra a mini tela de alerta
             }
-        }
+        } 
     }
 
     void ShowAlert()
@@ -71,3 +88,4 @@ public class CheckPayment : MonoBehaviour
             alertPanel.SetActive(false);
     }
 }
+

@@ -1,33 +1,29 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class VictoryScreen : MonoBehaviour
+public class ProximaFase : MonoBehaviour
 {
-    void Awake()
+    public void IrParaProximaFase()
     {
-        // Reinicia variáveis da fase
-        DragDropFood.totalValue = 0f;
-        DragDropFood.selectedCount = 0;
+        int faseAtual = PlayerPrefs.GetInt("FaseAtual", -1);
 
-        Debug.Log("Variáveis reiniciadas para nova fase.");
-    }
-
-    public void NextLevel()
-    {
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        if (faseAtual == -1)
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            Debug.LogError("Fase atual nÃ£o foi salva corretamente!");
+            return;
+        }
+
+        int proximaFase = faseAtual + 1;
+        if (proximaFase <= 12)
+        {
+            string nomeProximaFase = "Fase" + proximaFase;
+            Debug.Log("Indo para: " + nomeProximaFase);
+            SceneManager.LoadScene(nomeProximaFase);
         }
         else
         {
-            Debug.LogWarning("Última fase atingida.");
+            Debug.Log("Ãšltima fase concluÃ­da!");
+            // SceneManager.LoadScene("FimDoJogo"); // Caso tenha uma tela final
         }
-    }
-
-    public void RetryLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
