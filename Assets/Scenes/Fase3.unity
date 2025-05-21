@@ -917,7 +917,7 @@ MonoBehaviour:
   dragDropFood: {fileID: 487623343}
   paymentSlotTag: PaymentSlot
   alertPanel: {fileID: 1890893444}
-  alertRetryButton: {fileID: 0}
+  alertRetryButton: {fileID: 96517509}
 --- !u!4 &312081968
 Transform:
   m_ObjectHideFlags: 0
