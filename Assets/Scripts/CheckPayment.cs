@@ -56,7 +56,18 @@ public class CheckPayment : MonoBehaviour
                 {
                     int numeroFase = int.Parse(match.Groups[1].Value);
                     PlayerPrefs.SetInt("FaseAtual", numeroFase);
-                    PlayerPrefs.Save(); // Garante que a info seja salva imediatamente
+
+                    // SALVA AS ESTRELAS CONQUISTADAS NA FASE
+                    int estrelasGanhas = starSystem.GetCurrentStars();
+                    string key = "Stars_Fase_" + (numeroFase - 1); // Supondo que a fase 1 é índice 0
+                    int estrelasAnteriores = PlayerPrefs.GetInt(key, 0);
+
+                    if (estrelasGanhas > estrelasAnteriores)
+                    {
+                        PlayerPrefs.SetInt(key, estrelasGanhas);
+                    }
+
+                    PlayerPrefs.Save(); // Garante que tudo seja salvo
                 }
                 else
                 {
@@ -68,21 +79,21 @@ public class CheckPayment : MonoBehaviour
                 DragDropMoney.totalMoneyValue = 0f;
                 Debug.Log("Fase limpa!");
 
-                int estrelasGanhas = starSystem.GetCurrentStars();
+                int estrelasFinais = starSystem.GetCurrentStars();
 
-                if (estrelasGanhas >= 2)
+                if (estrelasFinais >= 2)
                 {
                     SceneManager.LoadScene("Scenes/FaseConcluida");
                 }
-              else
-{
-    // Salva o nome da cena atual para poder repetir depois
-    string nomeFaseAtual = SceneManager.GetActiveScene().name;
-    PlayerPrefs.SetString("FaseParaRepetir", nomeFaseAtual);
-    PlayerPrefs.Save();
+                else
+                {
+                    // Salva o nome da cena atual para poder repetir depois
+                    string nomeFaseAtual = SceneManager.GetActiveScene().name;
+                    PlayerPrefs.SetString("FaseParaRepetir", nomeFaseAtual);
+                    PlayerPrefs.Save();
 
-    SceneManager.LoadScene("Scenes/FaseFalha");
-}
+                    SceneManager.LoadScene("Scenes/FaseFalha");
+                }
 
             }
             else

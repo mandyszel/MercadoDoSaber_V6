@@ -475,6 +475,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674014188}
   m_CullTransparentMesh: 1
+--- !u!1 &756949450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 756949452}
+  - component: {fileID: 756949451}
+  m_Layer: 0
+  m_Name: DesbloqueioFase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &756949451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756949450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263d5fe0dba13dd488bae899bee60e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelButtons:
+  - button: {fileID: 1716736047}
+    image: {fileID: 1716736048}
+    unlockedSprite: {fileID: 6513447037963798651, guid: 20584ac6e5218a04993c46e1ac038a4f, type: 3}
+    lockedSprite: {fileID: 6513447037963798651, guid: 487bf4b7384b46a4cafa4659a31faa50, type: 3}
+  - button: {fileID: 674014190}
+    image: {fileID: 674014191}
+    unlockedSprite: {fileID: -1301575240523822885, guid: 2b3f9b84eab5b6642a3ef4917d00187c, type: 3}
+    lockedSprite: {fileID: -1301575240523822885, guid: dde431e69d7bd9b4785d70e673bb02f4, type: 3}
+  - button: {fileID: 1829399039}
+    image: {fileID: 1829399040}
+    unlockedSprite: {fileID: -7566150265482156891, guid: 2f8b2479b2ace4d46a5b5e5d17291704, type: 3}
+    lockedSprite: {fileID: -7566150265482156891, guid: c85bd789607103740821980be32ce622, type: 3}
+  - button: {fileID: 1455924774}
+    image: {fileID: 1455924775}
+    unlockedSprite: {fileID: -8027877527392195344, guid: 6cbbdaf05d2653c4bbbc8d7d04f24c8f, type: 3}
+    lockedSprite: {fileID: -8027877527392195344, guid: 568aef7b90b515043937531e0b2d262e, type: 3}
+  - button: {fileID: 1304877330}
+    image: {fileID: 1304877331}
+    unlockedSprite: {fileID: -6484122287952759749, guid: a237424a9140f694f80ee4f3e826f403, type: 3}
+    lockedSprite: {fileID: -7632048192771251837, guid: bd6f15cb98f32634b98861bda90b16a1, type: 3}
+  - button: {fileID: 1505989638}
+    image: {fileID: 1505989639}
+    unlockedSprite: {fileID: 8052185891761979793, guid: 1270343d27fe2804b8b06d55e63b1df7, type: 3}
+    lockedSprite: {fileID: 8052185891761979793, guid: 50e883a0ac436b1459a63bd14bed2419, type: 3}
+--- !u!4 &756949452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756949450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4709283, y: -0.35407034, z: -0.0032662523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &950366298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,5 +1971,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 194174183}
   - {fileID: 1634881137}
+  - {fileID: 756949452}
   - {fileID: 1883938609}
   - {fileID: 950366301}
