@@ -23,7 +23,6 @@ public class ProximaFase : MonoBehaviour
         else
         {
             Debug.Log("Última fase concluída!");
-            // SceneManager.LoadScene("FimDoJogo"); // Caso tenha uma tela final
         }
     }
 }

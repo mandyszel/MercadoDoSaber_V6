@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class CheckPayment : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class CheckPayment : MonoBehaviour
     public string paymentSlotTag = "PaymentSlot";
 
     [Header("Alerta de Erro")]
-    public GameObject alertPanel; // Imagem ou painel da mini tela
-    public Button alertRetryButton; // Botão dentro da mini tela
+    public GameObject alertPanel;
+    public Button alertRetryButton;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class CheckPayment : MonoBehaviour
         verifyButton.interactable = false;
 
         if (alertPanel != null)
-            alertPanel.SetActive(false); // Esconde o alerta de erro
+            alertPanel.SetActive(false);
 
         if (alertRetryButton != null)
             alertRetryButton.onClick.AddListener(HideAlert);
@@ -47,42 +48,47 @@ public class CheckPayment : MonoBehaviour
             {
                 starSystem.VerifyPayment();
 
-                // Salva o número da fase atual (ex: Fase3 -> 3)
+                // Pega o nome da cena atual e tenta extrair o número da fase
                 string currentSceneName = SceneManager.GetActiveScene().name;
-                System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(currentSceneName, @"Fase(\d+)");
+                Match match = Regex.Match(currentSceneName, @"Fase(\d+)");
+
                 if (match.Success)
                 {
                     int numeroFase = int.Parse(match.Groups[1].Value);
                     PlayerPrefs.SetInt("FaseAtual", numeroFase);
+                    PlayerPrefs.Save(); // Garante que a info seja salva imediatamente
                 }
                 else
                 {
-                    Debug.LogError("Nome da cena não segue o padrão 'FaseN'. Nome lido: '" + currentSceneName + "'");
+                    Debug.LogWarning("Cena atual não segue o padrão 'FaseN': " + currentSceneName);
                 }
 
-                // Limpa a fase ao acertar o pagamento
-                dragDropFood.ResetSlots(); // Limpa os slots de alimentos
-                DragDropMoney.totalMoneyValue = 0f; // Reseta o valor do dinheiro
+                // Limpa a fase
+                dragDropFood.ResetSlots();
+                DragDropMoney.totalMoneyValue = 0f;
                 Debug.Log("Fase limpa!");
 
-                // Verifica quantidade de estrelas ganhas
                 int estrelasGanhas = starSystem.GetCurrentStars();
 
                 if (estrelasGanhas >= 2)
                 {
                     SceneManager.LoadScene("Scenes/FaseConcluida");
                 }
-                else
-                {
-                    PlayerPrefs.SetString("FaseParaRepetir", currentSceneName);
-                    PlayerPrefs.Save();
-                    SceneManager.LoadScene("Scenes/FaseFalha");
-                }
+              else
+{
+    // Salva o nome da cena atual para poder repetir depois
+    string nomeFaseAtual = SceneManager.GetActiveScene().name;
+    PlayerPrefs.SetString("FaseParaRepetir", nomeFaseAtual);
+    PlayerPrefs.Save();
+
+    SceneManager.LoadScene("Scenes/FaseFalha");
+}
+
             }
             else
             {
-                StarSystem.errors++; // Conta o erro
-                ShowAlert(); // Mostra a mini tela de alerta
+                StarSystem.errors++;
+                ShowAlert();
             }
         }
     }
