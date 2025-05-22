@@ -1,45 +1,47 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class LevelUnlockManager : MonoBehaviour
+public class FaseBotaoController : MonoBehaviour
 {
-    [System.Serializable]
-    public class LevelButton
-    {
-        public Button button;
-        public Image image;
-        public Sprite unlockedSprite;
-        public Sprite lockedSprite;
-    }
+    [Header("Configurações da fase")]
+    public int numeroFaseReal; // Ex: Fase 1 = 1, Fase 2 = 2, ..., Fase 12 = 12
+    public string nomeCena; // Nome da cena correspondente, ex: "Fase1"
 
-    public LevelButton[] levelButtons;
+    [Header("Sprites da fase")]
+    public Sprite spriteDesbloqueado; // Colorida
+    public Sprite spriteBloqueado;    // Preto e branco
+
+    [Header("Referências")]
+    public Button botao;
+    public Image imagemFase;
 
     void Start()
     {
-        UpdateLevelButtons();
+        AtualizarBotao();
+        botao.onClick.AddListener(CarregarFase);
     }
 
-    void UpdateLevelButtons()
+    void AtualizarBotao()
     {
-        for (int i = 0; i < levelButtons.Length; i++)
+        bool desbloqueado = false;
+
+        if (numeroFaseReal == 1)
         {
-            bool isUnlocked = false;
-
-            if (i == 0)
-            {
-                // Primeira fase sempre desbloqueada
-                isUnlocked = true;
-            }
-            else
-            {
-                // Verifica se a fase anterior teve 2 estrelas ou mais
-                int previousStars = PlayerPrefs.GetInt("Stars_Fase_" + (i), 0); // Fase 1 é índice 0
-                if (previousStars >= 2)
-                    isUnlocked = true;
-            }
-
-            levelButtons[i].button.interactable = isUnlocked;
-            levelButtons[i].image.sprite = isUnlocked ? levelButtons[i].unlockedSprite : levelButtons[i].lockedSprite;
+            desbloqueado = true; // A primeira fase sempre começa desbloqueada
         }
+        else
+        {
+            int estrelasDaAnterior = PlayerPrefs.GetInt("Stars_Fase_" + (numeroFaseReal - 1), 0);
+            desbloqueado = estrelasDaAnterior >= 2;
+        }
+
+        botao.interactable = desbloqueado;
+        imagemFase.sprite = desbloqueado ? spriteDesbloqueado : spriteBloqueado;
+    }
+
+    void CarregarFase()
+    {
+        SceneManager.LoadScene(nomeCena);
     }
 }
