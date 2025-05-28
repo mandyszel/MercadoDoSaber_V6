@@ -4,13 +4,13 @@ using TMPro;
 
 public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private Vector3 originalPosition;
+    private Vector2 originalPosition;
     private Transform parentTransform;
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
-    public static float totalMoneyValue = 0f; // ALTERADO para float
+    public static float totalMoneyValue = 0f;
     private MoneyItem moneyItem;
     private Transform currentSlot;
     private bool isSelected = false;
@@ -21,17 +21,24 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvas = GetComponentInParent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        originalPosition = transform.position;
-        parentTransform = transform.parent;
+
+        originalPosition = rectTransform.anchoredPosition; // CORRIGIDO
+        parentTransform = transform.parent != null ? transform.parent : transform; // fallback de segurança
+
+        if (parentTransform == transform)
+        {
+            Debug.LogWarning("parentTransform estava nulo, usando o próprio transform.");
+        }
+
         moneyItem = GetComponent<MoneyItem>();
         currentSlot = null;
         UpdateTotalUI();
     }
 
-    public void SetInitialPosition(Vector3 spawnPosition)
+    public void SetInitialPosition(Vector2 spawnPosition)
     {
         originalPosition = spawnPosition;
-        rectTransform.anchoredPosition = new Vector2(originalPosition.x, originalPosition.y);
+        rectTransform.anchoredPosition = originalPosition;
         transform.SetParent(parentTransform);
     }
 
@@ -105,7 +112,7 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else
         {
             transform.SetParent(parentTransform);
-            rectTransform.anchoredPosition = originalPosition - parentTransform.position;
+            rectTransform.anchoredPosition = originalPosition; // CORRIGIDO
 
             if (isSelected)
             {
@@ -132,7 +139,7 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (totalMoneyValueText != null)
         {
-            totalMoneyValueText.text = totalMoneyValue.ToString("F2"); // Mostra com duas casas decimais
+            totalMoneyValueText.text = totalMoneyValue.ToString("F2");
         }
     }
 
@@ -157,15 +164,13 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         rectTransform.anchoredPosition = new Vector2(clampedX, clampedY);
     }
 
-    // Método para resetar os slots de dinheiro
     public void ResetMoneySlots()
     {
         totalMoneyValue = 0f;
         UpdateTotalUI();
 
-        // Reseta a posição do item e o estado de seleção
         transform.SetParent(parentTransform);
-        rectTransform.anchoredPosition = new Vector2(originalPosition.x, originalPosition.y);
+        rectTransform.anchoredPosition = originalPosition;
         isSelected = false;
         currentSlot = null;
 

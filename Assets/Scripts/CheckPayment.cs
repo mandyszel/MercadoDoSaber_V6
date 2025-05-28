@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Text.RegularExpressions;
 
 public class CheckPayment : MonoBehaviour
 {
@@ -48,30 +47,31 @@ public class CheckPayment : MonoBehaviour
             {
                 starSystem.VerifyPayment();
 
-                // Pega o nome da cena atual e tenta extrair o número da fase
-                string currentSceneName = SceneManager.GetActiveScene().name;
-                Match match = Regex.Match(currentSceneName, @"Fase(\d+)");
-
-                if (match.Success)
+                // Usa o número da fase vindo do componente FaseInfo
+                FaseInfo info = FindObjectOfType<FaseInfo>();
+                if (info != null)
                 {
-                    int numeroFase = int.Parse(match.Groups[1].Value);
+                    int numeroFase = info.numeroFase;
                     PlayerPrefs.SetInt("FaseAtual", numeroFase);
 
                     // SALVA AS ESTRELAS CONQUISTADAS NA FASE
                     int estrelasGanhas = starSystem.GetCurrentStars();
-                    string key = "Stars_Fase_" + (numeroFase - 1); // Supondo que a fase 1 é índice 0
+                    string key = "Stars_Fase_" + (numeroFase - 1); // Começa do índice 0
                     int estrelasAnteriores = PlayerPrefs.GetInt(key, 0);
+
+                        Debug.Log("Fase atual: " + numeroFase);
+    Debug.Log("Salvando na chave: Stars_Fase_" + numeroFase);
+
 
                     if (estrelasGanhas > estrelasAnteriores)
                     {
                         PlayerPrefs.SetInt(key, estrelasGanhas);
+                        PlayerPrefs.Save();
                     }
-
-                    PlayerPrefs.Save(); // Garante que tudo seja salvo
                 }
                 else
                 {
-                    Debug.LogWarning("Cena atual não segue o padrão 'FaseN': " + currentSceneName);
+                    Debug.LogWarning("Script FaseInfo não encontrado na cena!");
                 }
 
                 // Limpa a fase
@@ -94,7 +94,6 @@ public class CheckPayment : MonoBehaviour
 
                     SceneManager.LoadScene("Scenes/FaseFalha");
                 }
-
             }
             else
             {

@@ -14,7 +14,7 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private bool isSelected = false;
 
     public TextMeshProUGUI totalValueText;
-    public static float totalValue = 0f; // Agora com casas decimais
+    public static float totalValue = 0f;
 
     private FoodItem foodItem;
     private RectTransform currentSlot;
@@ -23,21 +23,22 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     void Awake()
     {
-        // Certificando-se de que os componentes estão atribuídos corretamente
         canvas = GetComponentInParent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        originalPosition = transform.position;
-        parentTransform = transform.parent;
+        foodItem = GetComponent<FoodItem>();
 
-        // Verifica se os componentes estão atribuídos corretamente
+        // Atribuição segura do parentTransform
+        parentTransform = transform.parent;
         if (parentTransform == null)
         {
-            Debug.LogError("parentTransform não foi atribuído corretamente!");
+            Debug.LogWarning("parentTransform estava nulo, tentando usar o próprio transform.");
+            parentTransform = transform;
         }
 
-        foodItem = GetComponent<FoodItem>();
+        originalPosition = transform.position;
         currentSlot = null;
+
         UpdateTotalUI();
     }
 
@@ -62,22 +63,15 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         transform.SetAsLastSibling();
 
-        Vector2 position;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        Vector3 globalPosition;
+        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
             canvas.transform as RectTransform,
             eventData.position,
-            canvas.worldCamera,
-            out position
-        );
-Vector3 globalPosition;
-if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
-    canvas.transform as RectTransform,
-    eventData.position,
-    canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
-    out globalPosition))
-{
-    transform.position = globalPosition;
-}
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+            out globalPosition))
+        {
+            transform.position = globalPosition;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -136,7 +130,7 @@ if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
         }
         else
         {
-            Debug.LogError("totalValueText não foi atribuído no inspector!");
+            Debug.LogWarning("totalValueText não foi atribuído no inspector.");
         }
     }
 
@@ -187,7 +181,6 @@ if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
 
     public void ResetSlots()
     {
-        // Reseta os slots
         for (int i = 0; i < slotOccupied.Length; i++)
         {
             slotOccupied[i] = false;
