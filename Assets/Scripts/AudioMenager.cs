@@ -1,120 +1,68 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class AudioManager : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static SoundManager Instance;
 
-    public Slider musicSlider;
-    public Slider sfxSlider;
-    public AudioClip backgroundMusic;
-    public AudioClip buttonClickSound;
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
 
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
+    private float musicVolume = 1f;
+    private float sfxVolume = 1f;
 
     void Awake()
     {
-        // Garante que apenas um AudioManager exista
-        if (instance == null)
+        // Garante que só exista um SoundManager persistente
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+            LoadVolumeSettings();
 
-        // Adiciona os AudioSources se não existirem
-        AudioSource[] sources = GetComponents<AudioSource>();
-        if (sources.Length < 2)
-        {
-            musicSource = gameObject.AddComponent<AudioSource>();
-            sfxSource = gameObject.AddComponent<AudioSource>();
-        }
-        else
-        {
-            musicSource = sources[0];
-            sfxSource = sources[1];
-        }
-
-        // Configuração do AudioSource da música
-        musicSource.loop = true;
-        if (backgroundMusic != null)
-        {
-            musicSource.clip = backgroundMusic;
             if (!musicSource.isPlaying)
             {
+                musicSource.loop = true;
                 musicSource.Play();
             }
         }
-
-        // Carrega volumes salvos
-        musicSource.volume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfxSource.volume = PlayerPrefs.GetFloat("SFXVolume", 1f);
-    }
-
-    void Start()
-    {
-        // Aplica o volume salvo aos sliders, se existirem
-        if (musicSlider != null) 
+        else
         {
-            musicSlider.value = musicSource.volume;
-            musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
-        }
-        
-        if (sfxSlider != null) 
-        {
-            sfxSlider.value = sfxSource.volume;
-            sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
-        }
-
-        RegisterButtons();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void UpdateMusicVolume(float value)
-    {
-        musicSource.volume = value;
-        PlayerPrefs.SetFloat("MusicVolume", value);
-        PlayerPrefs.Save();
-    }
-
-    void UpdateSFXVolume(float value)
-    {
-        sfxSource.volume = value;
-        PlayerPrefs.SetFloat("SFXVolume", value);
-        PlayerPrefs.Save();
-    }
-
-    void RegisterButtons()
-    {
-        Button[] buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
-        foreach (Button btn in buttons)
-        {
-            btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => PlayButtonClickSound());
+            Destroy(gameObject); // Evita duplicatas
         }
     }
 
-    public void PlayButtonClickSound()
+    public void SetMusicVolume(float volume)
     {
-        if (sfxSource != null && buttonClickSound != null)
-        {
-            sfxSource.PlayOneShot(buttonClickSound);
-        }
+        musicVolume = volume;
+        musicSource.volume = musicVolume;
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void SetSFXVolume(float volume)
     {
-        RegisterButtons();
+        sfxVolume = volume;
+        sfxSource.volume = sfxVolume;
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+    }
 
-        // Garante que os sliders sejam atualizados ao entrar em novas cenas
-        if (musicSlider != null) musicSlider.value = musicSource.volume;
-        if (sfxSlider != null) sfxSlider.value = sfxSource.volume;
+    private void LoadVolumeSettings()
+    {
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+
+        if (musicSource != null)
+        {
+            musicSource.volume = musicVolume;
+            musicSource.loop = true;
+        }
+
+        if (sfxSource != null)
+            sfxSource.volume = sfxVolume;
+    }
+
+    public void PlayClickSound()
+    {
+        if (sfxSource != null && sfxSource.clip != null)
+            sfxSource.PlayOneShot(sfxSource.clip);
     }
 }
-

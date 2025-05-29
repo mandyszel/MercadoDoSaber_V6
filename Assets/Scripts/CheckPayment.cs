@@ -48,7 +48,7 @@ public class CheckPayment : MonoBehaviour
                 starSystem.VerifyPayment();
 
                 // Usa o número da fase vindo do componente FaseInfo
-                FaseInfo info = FindObjectOfType<FaseInfo>();
+                FaseInfo info = FindFirstObjectByType<FaseInfo>();
                 if (info != null)
                 {
                     int numeroFase = info.numeroFase;
