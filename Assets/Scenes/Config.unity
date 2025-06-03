@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 930276704}
   - component: {fileID: 930276703}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cinza_0: 7439080509339664996
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

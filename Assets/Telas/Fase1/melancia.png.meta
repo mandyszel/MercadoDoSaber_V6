@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      melancia_0: -4343972821450535638
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

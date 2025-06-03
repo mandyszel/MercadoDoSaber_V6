@@ -203,7 +203,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2147402295}
         m_TargetAssemblyTypeName: OpenLink, Assembly-CSharp
-        m_MethodName: OpenSite
+        m_MethodName: AbrirLink
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 1236951221}
   - component: {fileID: 1236951220}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2147402295}
         m_TargetAssemblyTypeName: OpenLink, Assembly-CSharp
-        m_MethodName: OpenSite
+        m_MethodName: AbrirLink
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1154,7 +1154,7 @@ GameObject:
   - component: {fileID: 2147402296}
   - component: {fileID: 2147402295}
   m_Layer: 0
-  m_Name: LinkMenager
+  m_Name: AbrirLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      rabanete_0: -590254770678197903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

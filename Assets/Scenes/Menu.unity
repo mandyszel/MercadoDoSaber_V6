@@ -680,6 +680,7 @@ MonoBehaviour:
     - {fileID: 1631469486}
   estrelaCheia: {fileID: -6595491890931634705, guid: 812fdcbfbd87bf9419321a0aac062826, type: 3}
   estrelaVazia: {fileID: 7439080509339664996, guid: d623a0515bb003c4a9bfe484681bc598, type: 3}
+  offsetFaseInicial: 0
 --- !u!4 &311630371
 Transform:
   m_ObjectHideFlags: 0
@@ -2147,7 +2148,7 @@ GameObject:
   - component: {fileID: 1537136172}
   - component: {fileID: 1537136171}
   m_Layer: 5
-  m_Name: IrVoltatButton
+  m_Name: BotaoIrVoltar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2502,7 +2503,7 @@ GameObject:
   - component: {fileID: 1634881137}
   - component: {fileID: 1634881136}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

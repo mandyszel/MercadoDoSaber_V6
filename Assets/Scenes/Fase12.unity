@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4319908}
   - component: {fileID: 4319907}
   m_Layer: 5
-  m_Name: TotalText
+  m_Name: TotalTexto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1198,7 +1198,7 @@ GameObject:
   - component: {fileID: 296782413}
   - component: {fileID: 296782412}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 312081968}
   - component: {fileID: 312081967}
   m_Layer: 0
-  m_Name: VerifyMenager
+  m_Name: VerificarPagamento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 351181884}
   - component: {fileID: 351181883}
   m_Layer: 0
-  m_Name: StarSystem
+  m_Name: SistemaEstrelas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3213,7 +3213,7 @@ GameObject:
   - component: {fileID: 1183398868}
   - component: {fileID: 1183398867}
   m_Layer: 5
-  m_Name: FoodSlot1
+  m_Name: Slot1
   m_TagString: FoodSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3492,7 +3492,7 @@ GameObject:
   - component: {fileID: 1405515166}
   - component: {fileID: 1405515165}
   m_Layer: 5
-  m_Name: FoodSlot2
+  m_Name: Slot2
   m_TagString: FoodSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3567,7 +3567,7 @@ GameObject:
   - component: {fileID: 1541259024}
   - component: {fileID: 1541259023}
   m_Layer: 5
-  m_Name: FoodSlot3
+  m_Name: Slot3
   m_TagString: FoodSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3832,7 +3832,7 @@ GameObject:
   - component: {fileID: 1843700895}
   - component: {fileID: 1843700896}
   m_Layer: 0
-  m_Name: retangulosItens
+  m_Name: RetangulosItens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4162,7 +4162,7 @@ GameObject:
   - component: {fileID: 1890893447}
   - component: {fileID: 1890893446}
   m_Layer: 5
-  m_Name: AlertPanel
+  m_Name: PainelAlerta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

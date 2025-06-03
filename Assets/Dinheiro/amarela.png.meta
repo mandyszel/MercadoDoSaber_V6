@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      amarela_0: -6595491890931634705
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

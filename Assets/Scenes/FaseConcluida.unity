@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 154325006}
   - component: {fileID: 154325007}
   m_Layer: 0
-  m_Name: StarMenager
+  m_Name: MostrarEstrelas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -974,7 +974,7 @@ GameObject:
   - component: {fileID: 1416105552}
   - component: {fileID: 1416105551}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

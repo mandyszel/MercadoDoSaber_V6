@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class OpenLink : MonoBehaviour 
 {
-    public void OpenSite(string url)
+    public void AbrirLink(string url)
     {
         Application.OpenURL(url);
     }

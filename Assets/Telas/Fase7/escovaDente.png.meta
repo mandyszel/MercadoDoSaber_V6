@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      escovaDente_0: -809689393676793257
+      escovaDente_1: -3656117780672721239
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

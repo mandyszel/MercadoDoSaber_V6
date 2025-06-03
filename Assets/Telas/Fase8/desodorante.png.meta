@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      desodorante_0: 1197842761752302775
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

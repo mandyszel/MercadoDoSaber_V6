@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NomeTelaConfigCredi_0: 5276509756683629233
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

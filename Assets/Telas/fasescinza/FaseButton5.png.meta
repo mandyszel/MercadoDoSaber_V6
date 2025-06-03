@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FaseButton5_0: 5409243625834080897
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1671,7 +1671,7 @@ GameObject:
   - component: {fileID: 1071608306}
   - component: {fileID: 1071608305}
   m_Layer: 5
-  m_Name: IrVoltatButton
+  m_Name: BotaoIrVoltar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2769,7 +2769,7 @@ GameObject:
   - component: {fileID: 1634881137}
   - component: {fileID: 1634881136}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3338,7 +3338,6 @@ RectTransform:
   - {fileID: 1735454789}
   - {fileID: 2064155647}
   - {fileID: 426780825}
-  - {fileID: 1071608304}
   - {fileID: 1887673457}
   - {fileID: 1716736046}
   - {fileID: 674014189}
@@ -3352,6 +3351,7 @@ RectTransform:
   - {fileID: 1357687034}
   - {fileID: 2048079491}
   - {fileID: 594248077}
+  - {fileID: 1071608304}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

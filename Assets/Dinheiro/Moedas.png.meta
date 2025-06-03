@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Moedas_0: -1779112802604285027
+      Moedas_1: 9006420889702880551
+      Moedas_2: -6648454861420521806
+      Moedas_3: 7287863333020717592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

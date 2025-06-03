@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      batom-1_0: -1036431678067525273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

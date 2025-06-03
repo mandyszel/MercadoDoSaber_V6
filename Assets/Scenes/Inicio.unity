@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 878733902}
   - component: {fileID: 878733901}
   m_Layer: 0
-  m_Name: SceneMenager
+  m_Name: TrocarScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 944723843}
   - component: {fileID: 944723846}
   m_Layer: 5
-  m_Name: ButtonCreditos
+  m_Name: BotaoCreditos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 1248192390}
   - component: {fileID: 1248192393}
   m_Layer: 5
-  m_Name: ButtonConfig
+  m_Name: BotaoConfig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 1766688560}
   - component: {fileID: 1766688559}
   m_Layer: 5
-  m_Name: ButtonJogar
+  m_Name: BotaoJogar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

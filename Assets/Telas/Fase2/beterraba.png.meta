@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      beterraba_0: 8342631115888191198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      geleia_0: 7549644703613489435
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

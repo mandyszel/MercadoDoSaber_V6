@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bolacha_0: -3939447382297670073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

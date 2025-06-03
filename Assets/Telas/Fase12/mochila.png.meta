@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mochila_0: 3240130137451975133
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

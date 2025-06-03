@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blusa azul_0: 7393911442138388899
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
