@@ -24,7 +24,7 @@ public class StarDisplay : MonoBehaviour
         AtualizarEstrelasMenu();
     }
 
-    void AtualizarEstrelasMenu()
+    public void AtualizarEstrelasMenu()
     {
         int faseAtualDesbloqueada = PlayerPrefs.GetInt("FaseAtual", 1); // Começa na Fase 1
 
@@ -55,5 +55,24 @@ public class StarDisplay : MonoBehaviour
                 }
             }
         }
+    }
+
+    // ? Esta função deve ser chamada ao final da fase, passando o número da fase e as estrelas conquistadas
+    public void SalvarEstrelas(int numeroFase, int estrelasConquistadas)
+    {
+        string chaveEstrelas = "Stars_Fase_" + (numeroFase - 1);
+        PlayerPrefs.SetInt(chaveEstrelas, estrelasConquistadas); // Sempre sobrescreve
+        Debug.Log($"Estrelas atualizadas na Fase {numeroFase}: {estrelasConquistadas}");
+
+        // Desbloquear próxima fase se esta for a última desbloqueada e o jogador foi bem (2 ou mais)
+        int faseAtualDesbloqueada = PlayerPrefs.GetInt("FaseAtual", 1);
+
+        if (numeroFase == faseAtualDesbloqueada && estrelasConquistadas >= 2)
+        {
+            PlayerPrefs.SetInt("FaseAtual", faseAtualDesbloqueada + 1);
+            Debug.Log($"Fase {faseAtualDesbloqueada + 1} desbloqueada!");
+        }
+
+        PlayerPrefs.Save();
     }
 }
