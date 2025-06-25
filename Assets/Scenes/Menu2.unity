@@ -1338,7 +1338,7 @@ MonoBehaviour:
     - {fileID: 437235334}
   estrelaCheia: {fileID: -6595491890931634705, guid: 812fdcbfbd87bf9419321a0aac062826, type: 3}
   estrelaVazia: {fileID: 7439080509339664996, guid: d623a0515bb003c4a9bfe484681bc598, type: 3}
-  offsetFaseInicial: 7
+  offsetFaseInicial: 6
 --- !u!4 &735971064
 Transform:
   m_ObjectHideFlags: 0

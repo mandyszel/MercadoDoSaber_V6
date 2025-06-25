@@ -26,18 +26,22 @@ public class FaseBotaoController : MonoBehaviour
     {
         bool desbloqueado = false;
 
+        // Fase 1 sempre desbloqueada
         if (numeroFaseReal == 1)
         {
-            desbloqueado = true; // A primeira fase sempre começa desbloqueada
+            desbloqueado = true;
         }
         else
         {
-            int estrelasDaAnterior = PlayerPrefs.GetInt("Stars_Fase_" + (numeroFaseReal - 1), 0);
-            desbloqueado = estrelasDaAnterior >= 2;
+            // Checa se a fase anterior teve 2 ou mais estrelas
+            int estrelasFaseAnterior = PlayerPrefs.GetInt("Stars_Fase_" + (numeroFaseReal - 2), 0);
+            desbloqueado = estrelasFaseAnterior >= 2;
         }
 
         botao.interactable = desbloqueado;
         imagemFase.sprite = desbloqueado ? spriteDesbloqueado : spriteBloqueado;
+
+        Debug.Log($"[Menu] Fase {numeroFaseReal} {(desbloqueado ? "DESBLOQUEADA" : "bloqueada")} (Estrelas Fase Anterior: {PlayerPrefs.GetInt("Stars_Fase_" + (numeroFaseReal - 2), 0)})");
     }
 
     void CarregarFase()

@@ -24,15 +24,20 @@ public class StarDisplay : MonoBehaviour
         AtualizarEstrelasMenu();
     }
 
+    void OnEnable()
+    {
+        AtualizarEstrelasMenu();
+    }
+
     public void AtualizarEstrelasMenu()
     {
-        int faseAtualDesbloqueada = PlayerPrefs.GetInt("FaseAtual", 1); // Começa na Fase 1
+        int maiorFaseDesbloqueada = PlayerPrefs.GetInt("MaiorFaseDesbloqueada", 1); // Começa com Fase 1
 
         for (int i = 0; i < fasesEstrelas.Length; i++)
         {
-            int numeroFaseReal = offsetFaseInicial + i + 1; // Ex: 6 + 0 + 1 = Fase 7
+            int numeroFaseReal = offsetFaseInicial + i + 1;
 
-            if (numeroFaseReal > faseAtualDesbloqueada)
+            if (numeroFaseReal > maiorFaseDesbloqueada)
             {
                 foreach (Image estrela in fasesEstrelas[i].estrelas)
                 {
@@ -42,7 +47,7 @@ public class StarDisplay : MonoBehaviour
                 continue;
             }
 
-            string chave = "Stars_Fase_" + (numeroFaseReal - 1); // Ex: Fase 7 ? Stars_Fase_6
+            string chave = "Stars_Fase_" + (numeroFaseReal - 1);
             int estrelasSalvas = PlayerPrefs.GetInt(chave, 0);
             Debug.Log($"Fase {numeroFaseReal}: {estrelasSalvas} estrela(s)");
 
@@ -57,20 +62,23 @@ public class StarDisplay : MonoBehaviour
         }
     }
 
-    // ? Esta função deve ser chamada ao final da fase, passando o número da fase e as estrelas conquistadas
+    // Chamada ao final da fase
     public void SalvarEstrelas(int numeroFase, int estrelasConquistadas)
     {
         string chaveEstrelas = "Stars_Fase_" + (numeroFase - 1);
-        PlayerPrefs.SetInt(chaveEstrelas, estrelasConquistadas); // Sempre sobrescreve
-        Debug.Log($"Estrelas atualizadas na Fase {numeroFase}: {estrelasConquistadas}");
 
-        // Desbloquear próxima fase se esta for a última desbloqueada e o jogador foi bem (2 ou mais)
-        int faseAtualDesbloqueada = PlayerPrefs.GetInt("FaseAtual", 1);
+        // Sempre salva a tentativa atual para refletir no menu
+        PlayerPrefs.SetInt(chaveEstrelas, estrelasConquistadas);
+        Debug.Log($"Fase {numeroFase}: nova tentativa com {estrelasConquistadas} estrela(s)");
 
-        if (numeroFase == faseAtualDesbloqueada && estrelasConquistadas >= 2)
+        // Atualiza desbloqueio da próxima fase se o jogador ainda não tinha passado dela
+        int maiorFaseDesbloqueada = PlayerPrefs.GetInt("MaiorFaseDesbloqueada", 1);
+
+        // Se a fase atual for a última desbloqueada E o jogador foi bem
+        if (numeroFase == maiorFaseDesbloqueada && estrelasConquistadas >= 2)
         {
-            PlayerPrefs.SetInt("FaseAtual", faseAtualDesbloqueada + 1);
-            Debug.Log($"Fase {faseAtualDesbloqueada + 1} desbloqueada!");
+            PlayerPrefs.SetInt("MaiorFaseDesbloqueada", maiorFaseDesbloqueada + 1);
+            Debug.Log($"Desbloqueando Fase {maiorFaseDesbloqueada + 1}");
         }
 
         PlayerPrefs.Save();

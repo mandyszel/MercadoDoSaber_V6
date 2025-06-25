@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -23,8 +24,7 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup = GetComponent<CanvasGroup>();
 
         originalPosition = rectTransform.anchoredPosition; // CORRIGIDO
-        parentTransform = transform.parent != null ? transform.parent : transform; // fallback de segurança
-
+        parentTransform = transform.parent != null ? transform.parent : transform;
         if (parentTransform == transform)
         {
             Debug.LogWarning("parentTransform estava nulo, usando o próprio transform.");
@@ -131,7 +131,7 @@ public class DragDropMoney : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else
         {
-            Debug.Log("Valor incorreto!");
+Debug.Log("Comparando valores - Pago: " + DragDropMoney.totalMoneyValue.ToString("F10") + " | Esperado: " + DragDropFood.totalValue.ToString("F10"));
         }
     }
 

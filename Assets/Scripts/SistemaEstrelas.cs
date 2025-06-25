@@ -3,38 +3,36 @@ using UnityEngine.SceneManagement;
 
 public class StarSystem : MonoBehaviour
 {
-    public static int errors = 0; // Conta os erros do jogador
-    private int earnedStars = 0;  // Número de estrelas ganhas
+    public static int errors = 0;
+    private int earnedStars = 0;
 
-    // Chama quando o jogador acerta o pagamento
-    public void VerifyPayment()
+   public void VerifyPayment()
+{
+    float valorPago = Mathf.Round(DragDropMoney.totalMoneyValue * 100f) / 100f;
+    float valorEsperado = Mathf.Round(DragDropFood.totalValue * 100f) / 100f;
+    float diferenca = Mathf.Abs(valorPago - valorEsperado);
+
+    if (diferenca <= 0.01f)
     {
-        if (DragDropMoney.totalMoneyValue == DragDropFood.totalValue)
-        {
-            CalculateStars();
-            PlayerPrefs.SetInt("EarnedStars", earnedStars);
-            PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
+        CalculateStars();
+        PlayerPrefs.SetInt("EarnedStars", earnedStars);
+        PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("CanProceed", earnedStars >= 2 ? 1 : 0);
 
-            if (earnedStars >= 2)
-            {
-                PlayerPrefs.SetInt("CanProceed", 1);
-                SceneManager.LoadScene("FaseConcluida");
-            }
-            else
-            {
-                PlayerPrefs.SetInt("CanProceed", 0);
-                SceneManager.LoadScene("FaseFalha");
-            }
-        }
-        else
-        {
-            errors++;
-            PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
-            PlayerPrefs.SetInt("EarnedStars", 0);
-            PlayerPrefs.SetInt("CanProceed", 0);
-            SceneManager.LoadScene("FaseFalha");
-        }
+        Debug.Log($"[StarSystem] Pagamento correto. Estrelas calculadas: {earnedStars}");
     }
+    else
+    {
+        errors++;
+        earnedStars = 0;
+        PlayerPrefs.SetInt("EarnedStars", 0);
+        PlayerPrefs.SetString("LastPlayedLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("CanProceed", 0);
+
+        Debug.LogWarning($"[StarSystem] Pagamento errado. Erros: {errors}, Estrelas: {earnedStars}");
+    }
+}
+
 
     private void CalculateStars()
     {
@@ -47,9 +45,9 @@ public class StarSystem : MonoBehaviour
         else
             earnedStars = 0;
     }
-    public int GetCurrentStars()
-{
-    return earnedStars;
-}
 
+    public int GetCurrentStars()
+    {
+        return earnedStars;
+    }
 }

@@ -43,9 +43,20 @@ public class CheckPayment : MonoBehaviour
     {
         if (dragDropFood.AllSlotsFilled() && IsPaymentSlotNotEmpty())
         {
-            if (DragDropMoney.totalMoneyValue == DragDropFood.totalValue)
+            // Arredondar valores para 2 casas decimais
+            float valorPago = Mathf.Round(DragDropMoney.totalMoneyValue * 100f) / 100f;
+            float valorEsperado = Mathf.Round(DragDropFood.totalValue * 100f) / 100f;
+
+            float diferenca = Mathf.Abs(valorPago - valorEsperado);
+            Debug.Log($"Valor pago arredondado: {valorPago}, Valor esperado arredondado: {valorEsperado}, Diferença: {diferenca}");
+
+            if (diferenca <= 0.01f) // tolerância de 1 centavo
             {
                 starSystem.VerifyPayment();
+
+                // Log após verificar pagamento
+                int estrelasAposVerificacao = starSystem.GetCurrentStars();
+                Debug.Log($"Estrelas após VerifyPayment(): {estrelasAposVerificacao}");
 
                 // Usa o número da fase vindo do componente FaseInfo
                 FaseInfo info = FindFirstObjectByType<FaseInfo>();
@@ -59,19 +70,22 @@ public class CheckPayment : MonoBehaviour
                     string key = "Stars_Fase_" + (numeroFase - 1); // Começa do índice 0
                     int estrelasAnteriores = PlayerPrefs.GetInt(key, 0);
 
-                        Debug.Log("Fase atual: " + numeroFase);
-    Debug.Log("Salvando na chave: Stars_Fase_" + numeroFase);
+                    Debug.Log("Fase atual: " + numeroFase);
+                    Debug.Log("Salvando na chave: Stars_Fase_" + (numeroFase - 1));
+                    Debug.Log($"Estrelas ganhas para salvar: {estrelasGanhas}");
 
+                    // Salva as estrelas da última tentativa para exibir no menu
+                    PlayerPrefs.SetInt(key, estrelasGanhas);
 
-                    if (estrelasGanhas > estrelasAnteriores)
+                    // Agora trata desbloqueio da próxima fase, com base no MAIOR progresso
+                    int maiorFaseDesbloqueada = PlayerPrefs.GetInt("MaiorFaseDesbloqueada", 1);
+                    if (info.numeroFase == maiorFaseDesbloqueada && estrelasGanhas >= 2)
                     {
-                        PlayerPrefs.SetInt(key, estrelasGanhas);
-                        PlayerPrefs.Save();
+                        PlayerPrefs.SetInt("MaiorFaseDesbloqueada", maiorFaseDesbloqueada + 1);
+                        Debug.Log($"Desbloqueando Fase {maiorFaseDesbloqueada + 1}");
                     }
-                }
-                else
-                {
-                    Debug.LogWarning("Script FaseInfo não encontrado na cena!");
+
+                    PlayerPrefs.Save();
                 }
 
                 // Limpa a fase
@@ -80,11 +94,20 @@ public class CheckPayment : MonoBehaviour
                 Debug.Log("Fase limpa!");
 
                 int estrelasFinais = starSystem.GetCurrentStars();
+                Debug.Log($"Estrelas finais para decidir cena: {estrelasFinais}");
 
                 if (estrelasFinais >= 2)
-                {
-                    SceneManager.LoadScene("Scenes/FaseConcluida");
-                }
+{
+    if (info != null && info.numeroFase == 12)
+    {
+        SceneManager.LoadScene("Scenes/UltimaFaseTela");
+    }
+    else
+    {
+        SceneManager.LoadScene("Scenes/FaseConcluida");
+    }
+}
+
                 else
                 {
                     // Salva o nome da cena atual para poder repetir depois
@@ -99,6 +122,7 @@ public class CheckPayment : MonoBehaviour
             {
                 StarSystem.errors++;
                 ShowAlert();
+                Debug.LogWarning($"Pagamento incorreto! Valor pago: {valorPago}, Valor esperado: {valorEsperado}");
             }
         }
     }
