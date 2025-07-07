@@ -23,6 +23,11 @@ public class DragDropFood : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     void Awake()
     {
+        // Resetar variáveis estáticas
+    totalValue = 0f;
+    selectedCount = 0;
+    slotOccupied = new bool[3];
+
         canvas = GetComponentInParent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();

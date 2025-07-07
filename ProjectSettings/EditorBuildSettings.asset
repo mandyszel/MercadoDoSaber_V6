@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FaseFalha.unity
     guid: a995449c4068c7349a58f77ff948350a
   - enabled: 1
+    path: Assets/Scenes/UltimaFaseTela.unity
+    guid: 092ef3547bddff641abe979459a50725
+  - enabled: 1
     path: Assets/Scenes/Fase1.unity
     guid: 1f3eb9940d573784fa3592a330351a45
   - enabled: 1
